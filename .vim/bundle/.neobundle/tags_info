@@ -12,6 +12,7 @@ unite.vim
 vim-better-whitespace
 vim-coffee-script
 vim-css-color
+vim-dispatch
 vim-easy-align
 vim-exchange
 vim-fugitive

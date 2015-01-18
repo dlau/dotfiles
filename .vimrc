@@ -244,6 +244,7 @@ NeoBundle "michaeljsmith/vim-indent-object"
 "Tool
 NeoBundle "tpope/vim-fugitive"
 NeoBundleLazy "pangloss/vim-javascript", {'autoload':{'filetypes':['javascript']}}
+NeoBundle "tpope/vim-dispatch"
 
 "Colors
 NeoBundle "junegunn/seoul256.vim"

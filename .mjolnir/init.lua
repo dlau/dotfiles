@@ -17,7 +17,7 @@ hotkey.bind({"alt", "shift"}, "2", function()
 end)
 
 hotkey.bind({"alt", "shift"}, "3", function()
-    application.launchorfocus("Google Chrome")
+    application.launchorfocus("Google Chrome Canary")
 end)
 
 --resize fns hjkl

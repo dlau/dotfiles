@@ -211,7 +211,6 @@ NeoBundleLazy "ap/vim-css-color", {'autoload':{'filetypes':['css','sass','less']
 NeoBundleLazy "wavded/vim-stylus", {'autoload':{'filetypes':['styl']}}
 NeoBundleLazy "fatih/vim-go.git", {'autoload':{'filetypes':['go']}}
 NeoBundleLazy "kchmck/vim-coffee-script", {'autoload':{'filetypes':['coffee']}}
-NeoBundle "nathanaelkane/vim-indent-guides"
 NeoBundle "ntpeters/vim-better-whitespace"
 
 " Navigation
@@ -482,3 +481,6 @@ nmap <leader>s :VimShell -split -split-command=10sp<CR>
 imap <expr><C-]> (pumvisible() ? "\<C-y>":"")."\<Plug>(neosnippet_expand_or_jump)"
 
 set cursorline
+
+set tabstop=2
+set shiftwidth=2

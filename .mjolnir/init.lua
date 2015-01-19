@@ -9,11 +9,11 @@ local grid = require "mjolnir.bg.grid"
 grid.adjustwidth(2)
 
 hotkey.bind({"alt", "shift"}, "1", function()
-    application.launchorfocus("MacVim")
+    application.launchorfocus("iTerm")
 end)
 
 hotkey.bind({"alt", "shift"}, "2", function()
-    application.launchorfocus("iTerm")
+    application.launchorfocus("MacVim")
 end)
 
 hotkey.bind({"alt", "shift"}, "3", function()

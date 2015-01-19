@@ -482,4 +482,3 @@ nmap <leader>s :VimShell -split -split-command=10sp<CR>
 imap <expr><C-]> (pumvisible() ? "\<C-y>":"")."\<Plug>(neosnippet_expand_or_jump)"
 
 set cursorline
-

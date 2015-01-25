@@ -73,6 +73,8 @@ set foldcolumn=1
 syntax enable
 
 " Color set to seoul256 below after neobundle init
+"let g:jellybeans_use_lowcolor_black = 0
+"colors jellybeans
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -212,6 +214,7 @@ NeoBundleLazy "wavded/vim-stylus", {'autoload':{'filetypes':['styl']}}
 NeoBundleLazy "fatih/vim-go.git", {'autoload':{'filetypes':['go']}}
 NeoBundleLazy "kchmck/vim-coffee-script", {'autoload':{'filetypes':['coffee']}}
 NeoBundle "ntpeters/vim-better-whitespace"
+NeoBundle "airblade/vim-gitgutter"
 
 " Navigation
 NeoBundle "Shougo/tabpagebuffer.vim"
@@ -232,7 +235,7 @@ NeoBundle "tpope/vim-surround"
 NeoBundle "tommcdo/vim-exchange"
 NeoBundle "AndrewRadev/switch.vim"
 NeoBundleLazy "dlau/vim-jsdoc", {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy "dlau/emmet-vim/", {'autoload':{'filetypes':['html', 'jsx', 'javascript']}}
+NeoBundleLazy "dlau/emmet-vim/", {'autoload':{'filetypes':['html', 'jsx', 'javascript', 'coffee']}}
 
 " Checkers
 NeoBundle "scrooloose/syntastic"
@@ -246,7 +249,7 @@ NeoBundleLazy "pangloss/vim-javascript", {'autoload':{'filetypes':['javascript']
 NeoBundle "tpope/vim-dispatch"
 
 "Colors
-NeoBundle "junegunn/seoul256.vim"
+"NeoBundle "junegunn/seoul256.vim"
 
 filetype plugin indent on     " Required!
 
@@ -267,7 +270,7 @@ set backspace=eol,start,indent         " backspace in insert mode works like nor
 
 let g:Powerline_symbols = 'fancy'
 
-set colorcolumn=90
+set colorcolumn=80
 
 "Vim switch
 nnoremap - :Switch<CR>
@@ -278,7 +281,7 @@ let g:user_emmet_leader_key='<C-a>'
 autocmd BufNewFile,BufRead *.jsx let g:emmet_user_react_tags=1
 
 "JSDoc
-nmap -- :JsDoc <cr>
+"nmap -- :JsDoc <cr>
 
 "Syntastic Config
 
@@ -305,6 +308,8 @@ elseif executable('ack')
 endif
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#custom#profile('default', 'context', { 'cursor_line_highlight' : 'PmenuSel' })
+
 
 let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --hidden -g ""'
 
@@ -484,3 +489,4 @@ set cursorline
 
 set tabstop=2
 set shiftwidth=2
+

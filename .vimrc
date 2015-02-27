@@ -215,6 +215,7 @@ NeoBundleLazy "fatih/vim-go.git", {'autoload':{'filetypes':['go']}}
 NeoBundleLazy "kchmck/vim-coffee-script", {'autoload':{'filetypes':['coffee']}}
 NeoBundle "ntpeters/vim-better-whitespace"
 NeoBundle "airblade/vim-gitgutter"
+NeoBundleLazy "amdt/vim-niji", {'autoload':{'filetypes':['clojure','lisp','javascript','vim']}}
 
 " Navigation
 NeoBundle "Shougo/tabpagebuffer.vim"
@@ -247,6 +248,9 @@ NeoBundle "michaeljsmith/vim-indent-object"
 NeoBundle "tpope/vim-fugitive"
 NeoBundleLazy "pangloss/vim-javascript", {'autoload':{'filetypes':['javascript']}}
 NeoBundle "tpope/vim-dispatch"
+NeoBundleLazy "tpope/vim-leiningen", {'autoload':{'filetypes':['clojure']}}
+NeoBundleLazy "tpope/vim-projectionist", {'autoload':{'filetypes':['clojure']}}
+NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
 
 "Colors
 "NeoBundle "junegunn/seoul256.vim"

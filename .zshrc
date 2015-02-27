@@ -16,6 +16,7 @@ export PATH=/Developer/NVIDIA/CUDA-5.5/bin:$PATH
 #Aliases
 alias ll="ls -l"
 alias v=/usr/local/bin/gvim
+alias frsync=rsync --iconv=utf-8-mac,utf-8 -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x"
 
 #Vi bash mode
 bindkey -v
@@ -70,3 +71,4 @@ export PATH=$PATH:$GOPATH/bin
 
 source ~/.zsh/plugins/opp.zsh/opp.zsh
 source ~/.zsh/plugins/opp.zsh/opp/surround.zsh
+

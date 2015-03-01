@@ -276,6 +276,11 @@ let g:Powerline_symbols = 'fancy'
 
 set colorcolumn=80
 
+"Dispatch for specific file types
+"
+autocmd BufNewFile,BufRead *.spec.coffee nmap <F5> :Dispatch! coffee %<CR>
+
+
 "Vim switch
 nnoremap - :Switch<CR>
 

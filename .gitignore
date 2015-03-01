@@ -2,3 +2,5 @@
 .vim/cache
 .vim/bundle
 .vim/.netrwhist
+.emacs.d/*
+!.emacs.d/init.el

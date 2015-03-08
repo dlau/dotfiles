@@ -28,6 +28,7 @@
 (setq projectile-indexing-method 'native)
 (setq projectile-enable-caching t)
 
+(require-package 'evil-leader)
 (evil-leader/set-key
     "s" 'helm-projectile-ag
     "r" 'projectile-replace
@@ -65,3 +66,17 @@
   (defun track-mouse (e))
   (setq mouse-sel-mode t)
 )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (color-theme-sanityinc-tomorrow color-theme evil-surround evil-leader projectile helm evil))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

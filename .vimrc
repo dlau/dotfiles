@@ -97,6 +97,20 @@ set ffs=unix,dos,mac
 set nobackup
 set nowb
 set noswapfile
+set undofile
+set undoreload=10000
+
+
+set undodir=~/.vim/tmp/undo//     " undo files
+set directory=~/.vim/tmp/swap//   " swap files
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -251,6 +265,7 @@ NeoBundle "tpope/vim-dispatch"
 NeoBundleLazy "tpope/vim-leiningen", {'autoload':{'filetypes':['clojure']}}
 NeoBundleLazy "tpope/vim-projectionist", {'autoload':{'filetypes':['clojure']}}
 NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
+NeoBundle "sjl/gundo.vim/"
 
 "Colors
 "NeoBundle "junegunn/seoul256.vim"
@@ -489,13 +504,12 @@ nnoremap t :tabnext<CR>
 nnoremap T :tabprevious<CR>
 nnoremap <C-t> :tabnew<CR>
 
-set splitbelow
-nmap <leader>s :VimShell -split -split-command=10sp<CR>
-
 imap <expr><C-]> (pumvisible() ? "\<C-y>":"")."\<Plug>(neosnippet_expand_or_jump)"
 
 set cursorline
 
 set tabstop=2
 set shiftwidth=2
+
+nmap <C-u> :GundoToggle<CR>
 

@@ -362,7 +362,7 @@ endfunction
 
 let g:unite_source_history_yank_enable = 1
 
-nnoremap <leader>f :<C-u>Unite -auto-resize -start-insert buffer file_rec/async:!<cr>
+nnoremap <leader>f :<C-u>Unite -auto-resize -start-insert file_rec/async:!<cr>
 nnoremap <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers  buffer_tab<cr>
 nnoremap <leader>y :<C-u>Unite history/yank<cr>
 
@@ -513,3 +513,4 @@ set shiftwidth=2
 
 nmap <C-u> :GundoToggle<CR>
 
+set mouse=a

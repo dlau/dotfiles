@@ -1,0 +1,1 @@
+vmap <return> :Eval<CR>

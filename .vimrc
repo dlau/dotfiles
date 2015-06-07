@@ -263,7 +263,6 @@ NeoBundle "tpope/vim-fugitive"
 NeoBundleLazy "pangloss/vim-javascript", {'autoload':{'filetypes':['javascript']}}
 NeoBundle "tpope/vim-dispatch"
 NeoBundleLazy "tpope/vim-leiningen", {'autoload':{'filetypes':['clojure']}}
-NeoBundleLazy "tpope/vim-projectionist", {'autoload':{'filetypes':['clojure']}}
 NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
 NeoBundle "sjl/gundo.vim/"
 

@@ -58,17 +58,25 @@ if hash cowsay &>/dev/null && hash fortune &>/dev/null; then
   print '\r\n'
 fi
 
+# RVM
+
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
 
 
+# Go Specific
 
 export GOPATH=~/dev/go
 export PATH=$PATH:$GOPATH/bin
 
 
+# Fuzzy finder
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
+# Extra 
 source ~/.zsh/plugins/opp.zsh/opp.zsh
 source ~/.zsh/plugins/opp.zsh/opp/surround.zsh
 
+export TERM=screen-256color

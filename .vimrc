@@ -54,8 +54,7 @@ set magic
 " Show matching brackets when text indicator is over them
 set showmatch
 " How many tenths of a second to blink when matching brackets
-set mat=2
-
+set mat=2 
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
@@ -72,9 +71,8 @@ set foldcolumn=1
 " Enable syntax highlighting
 syntax enable
 
-" Color set to seoul256 below after neobundle init
-"let g:jellybeans_use_lowcolor_black = 0
-"colors jellybeans
+let g:jellybeans_use_lowcolor_black = 0
+colors jellybeans
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -230,12 +228,14 @@ NeoBundleLazy "kchmck/vim-coffee-script", {'autoload':{'filetypes':['coffee']}}
 NeoBundle "ntpeters/vim-better-whitespace"
 NeoBundle "airblade/vim-gitgutter"
 NeoBundleLazy "amdt/vim-niji", {'autoload':{'filetypes':['clojure','lisp','javascript','vim']}}
+NeoBundle "nathanaelkane/vim-indent-guides"
 
 " Navigation
 NeoBundle "Shougo/tabpagebuffer.vim"
 NeoBundle "Shougo/vimfiler.vim"
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'christoomey/vim-tmux-navigator'
 
 " Completion
 NeoBundle "Shougo/neocomplete.vim"
@@ -265,35 +265,17 @@ NeoBundle "tpope/vim-dispatch"
 NeoBundleLazy "tpope/vim-leiningen", {'autoload':{'filetypes':['clojure']}}
 NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
 NeoBundle "sjl/gundo.vim/"
-
-"Colors
-"NeoBundle "junegunn/seoul256.vim"
+NeoBundle "benmills/vimux"
 
 filetype plugin indent on     " Required!
 
 NeoBundleCheck
-
-" seoul256 (dark):
-"   Range:   233 (darkest) ~ 239 (lightest)
-"   Default: 237
-" seoul256 (light):
-"   Range:   252 (darkest) ~ 256 (lightest)
-"   Default: 253
-
-let g:seoul256_background = 234
-colo seoul256
-
 
 set backspace=eol,start,indent         " backspace in insert mode works like normal editor
 
 let g:Powerline_symbols = 'fancy'
 
 set colorcolumn=80
-
-"Dispatch for specific file types
-"
-autocmd BufNewFile,BufRead *.spec.coffee nmap <F5> :Dispatch! coffee %<CR>
-
 
 "Vim switch
 nnoremap - :Switch<CR>
@@ -483,6 +465,7 @@ noremap <silent> <C-l> :call AddEmptyLineBelow()<CR>
 let g:cssColorVimDoNotMessMyUpdatetime = 1
 let javascript_enable_domhtmlcss = 1
 let g:indent_guides_enable_on_vim_startup=1
+au FileType coffee,python,ruby IndentGuidesEnable
 let g:session_autosave='no'
 let g:session_autoload='no'
 set ssop-=options    " do not store global and local values in a session
@@ -513,3 +496,14 @@ set shiftwidth=2
 nmap <C-u> :GundoToggle<CR>
 
 set mouse=a
+
+" Tmux navigator
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+
+map <F6> :call VimuxRunLastCommand()<CR>
+

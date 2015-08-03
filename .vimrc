@@ -205,11 +205,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-
-call neobundle#end()
 
 " Plugins {{{
 NeoBundle 'Shougo/vimproc', {
@@ -227,7 +222,7 @@ NeoBundleLazy "fatih/vim-go.git", {'autoload':{'filetypes':['go']}}
 NeoBundleLazy "kchmck/vim-coffee-script", {'autoload':{'filetypes':['coffee']}}
 NeoBundle "ntpeters/vim-better-whitespace"
 NeoBundle "airblade/vim-gitgutter"
-NeoBundleLazy "amdt/vim-niji", {'autoload':{'filetypes':['clojure','lisp','javascript','vim']}}
+NeoBundleLazy "luochen1990/rainbow", {'autoload':{'filetypes':['clojure','lisp','javascript','vim']}}
 NeoBundle "nathanaelkane/vim-indent-guides"
 
 " Navigation
@@ -268,9 +263,12 @@ NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
 NeoBundle "sjl/gundo.vim/"
 NeoBundle "benmills/vimux"
 
+call neobundle#end()
+
 filetype plugin indent on     " Required!
 
 NeoBundleCheck
+
 
 set backspace=eol,start,indent         " backspace in insert mode works like normal editor
 
@@ -301,6 +299,7 @@ imap <expr><C-]> (pumvisible() ? "\<C-y>":"")."\<Plug>(neosnippet_expand_or_jump
 nmap <expr><C-]> (pumvisible() ? "\<C-y>":"")."\<Plug>(neosnippet_expand_or_jump)"
 
 "Unite.vim plugin configuration
+
 "TODO: Make project specific
 "Greppers
 if executable('ag')
@@ -470,6 +469,9 @@ au FileType coffee,python,ruby IndentGuidesEnable
 let g:session_autosave='no'
 let g:session_autoload='no'
 set ssop-=options    " do not store global and local values in a session
+
+" Enable rainbow parens by default
+let g:rainbow_active = 1
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)

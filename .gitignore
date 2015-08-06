@@ -2,7 +2,4 @@
 .vim/cache
 .vim/bundle
 .vim/.netrwhist
-<<<<<<< HEAD
-.emacs.d/*
-!.emacs.d/init.el
 .vim/tmp

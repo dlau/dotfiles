@@ -1,5 +1,10 @@
 ;;; anything-bundle.el --- Just anything
 
+;;; Emacs global
+
+(tool-bar-mode -1)
+(set-default-font "Menlo-14")
+
 ;;; Commentary:
 ;;
 
@@ -61,6 +66,11 @@
 ;; (add-hook 'c-mode-common-hook 'ac-etags-ac-setup)
 ;; (add-hook 'enh-ruby-mode-hook 'ac-etags-ac-setup)
 ;; (add-hook 'elixir-mode-hook 'ac-etags-ac-setup)
+
+;;==============================================================================
+;; Yasnippet
+;;==============================================================================
+(yas-global-mode 1)
 
 ;;==============================================================================
 ;; Autocomplete with company-mode
@@ -200,6 +210,8 @@ Repeated invocations toggle between the two most recently open buffers."
   (if (buffer-exists "*Ibuffer*")  (kill-buffer "*Ibuffer*"))
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
+(global-evil-tabs-mode t)
+
 ;; =============================================================================
 ;; Evil Bindings
 ;; =============================================================================
@@ -212,6 +224,11 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key evil-normal-state-map (kbd ";") 'evil-ex)
 (define-key evil-visual-state-map (kbd ";") 'evil-ex)
 (define-key evil-motion-state-map (kbd ";") 'evil-ex)
+
+;; T and t move tabs left and right
+(define-key evil-normal-state-map (kbd "t") 'elscreen-next)
+(define-key evil-normal-state-map (kbd "T") 'elscreen-previous)
+(define-key evil-normal-state-map (kbd "C-t") 'elscreen-create)
 
 ;; Toggle tree
 (define-key evil-normal-state-map (kbd "C-\\") 'neotree-toggle)

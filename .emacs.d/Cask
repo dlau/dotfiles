@@ -2,6 +2,7 @@
 (source melpa)
 
 (depends-on "key-chord")
+(depends-on "emamux")
 (depends-on "company")
 (depends-on "yasnippet")
 (depends-on "smartparens")
@@ -11,6 +12,7 @@
 (depends-on "evil-leader")
 (depends-on "evil-surround")
 (depends-on "evil-visualstar")
+(depends-on "evil-indent-textobject")
 (depends-on "saveplace")
 (depends-on "powerline")
 (depends-on "smooth-scrolling")

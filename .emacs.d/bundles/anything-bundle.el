@@ -5,6 +5,15 @@
 (tool-bar-mode -1)
 (set-default-font "Menlo-14")
 
+;; stop annoying "Command attempted to use minibuffer while in minibuffer."
+;; http://trey-jackson.blogspot.com/2010/04/emacs-tip-36-abort-minibuffer-when.html
+(defun stop-using-minibuffer ()
+    "kill the minibuffer"
+      (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
+            (abort-recursive-edit)))
+
+(add-hook 'mouse-leave-buffer-hook 'stop-using-minibuffer)
+
 ;;; Commentary:
 ;;
 
@@ -23,12 +32,10 @@
 
 (setq ido-decorations (quote ("\n↪ "     "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
 
-
 (require 'flx-ido)
 (ido-mode 1)
 (ido-everywhere 1)
 (flx-ido-mode 1)
-
 
 ;; Parens handling
 ;; Show and create matching parens automatically
@@ -122,10 +129,11 @@
 ;; =============================================================================
 ;; Evil
 ;; =============================================================================
+(require 'evil-indent-textobject)
 (require 'evil)
 (evil-mode 1)
 (global-evil-visualstar-mode 1)
-; (setq evil-default-cursor t)
+ (setq evil-default-cursor t)
 (progn (setq evil-default-state 'normal)
        (setq evil-auto-indent t)
        (setq evil-shift-width 2)
@@ -215,6 +223,10 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; =============================================================================
 ;; Evil Bindings
 ;; =============================================================================
+
+(require 'emamux)
+(setq emamux:use-nearest-pane t)
+
 ;; (define-key evil-normal-state-map (kbd "RET") 'save-buffer)
 (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
 (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
@@ -229,6 +241,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key evil-normal-state-map (kbd "t") 'elscreen-next)
 (define-key evil-normal-state-map (kbd "T") 'elscreen-previous)
 (define-key evil-normal-state-map (kbd "C-t") 'elscreen-create)
+
 
 ;; Toggle tree
 (define-key evil-normal-state-map (kbd "C-\\") 'neotree-toggle)
@@ -411,6 +424,18 @@ Repeated invocations toggle between the two most recently open buffers."
   (add-hook 'after-make-frame-functions (lambda (frame) (my-evil-terminal-cursor-change)))
   (my-evil-terminal-cursor-change)
 
+(defun my-evil-modeline-change (default-color)
+  "changes the modeline color when the evil mode changes"
+  (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
+                     ((evil-visual-state-p) '("#330022" . "#ffffff"))
+                     ((evil-normal-state-p) default-color)
+                     (t '("#440000" . "#ffffff")))))
+    (set-face-background 'mode-line (car color))
+    (set-face-foreground 'mode-line (cdr color))))
+
+(lexical-let ((default-color (cons (face-background 'mode-line)
+                                   (face-foreground 'mode-line))))
+  (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 
 ;; (defun change-major-mode-hook () (modify-syntax-entry ?_ "w"))
 (setq inhibit-startup-screen t)
@@ -562,9 +587,16 @@ Repeated invocations toggle between the two most recently open buffers."
                             (setq evil-shift-width 2)
                             (setq tab-width 2)))
 
+(defun coffee-current-file ()
+  (interactive)
+  (emamux:run-command
+    (format "coffee %s" (buffer-file-name))
+    (projectile-project-root)))
+
 (add-hook 'coffee-mode-hook (lambda ()
                             (setq evil-shift-width 2)
-                            (setq tab-width 2)))
+                            (setq tab-width 2)
+                            (define-key evil-normal-state-map (kbd "<f5>") 'coffee-current-file)))
 
 (add-hook 'haml-mode-hook (lambda ()
                             (setq evil-shift-width 2)

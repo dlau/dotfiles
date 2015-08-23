@@ -235,6 +235,7 @@ NeoBundle 'christoomey/vim-tmux-navigator'
 " Completion
 NeoBundle "Shougo/neocomplete.vim"
 NeoBundle "tpope/vim-repeat"
+NeoBundle "junegunn/vim-peekaboo"
 
 "Macro
 NeoBundle "junegunn/vim-easy-align"

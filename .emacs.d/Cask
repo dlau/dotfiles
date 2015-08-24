@@ -32,3 +32,4 @@
 (depends-on "alchemist")
 (depends-on "markdown-mode")
 (depends-on "evil-tabs")
+(depends-on "highlight-indentation")

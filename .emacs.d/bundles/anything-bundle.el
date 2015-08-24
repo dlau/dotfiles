@@ -220,12 +220,15 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (global-evil-tabs-mode t)
 
-;; =============================================================================
-;; Evil Bindings
-;; =============================================================================
+
+(require 'evil-nerd-commenter)
 
 (require 'emamux)
 (setq emamux:use-nearest-pane t)
+
+;; =============================================================================
+;; Evil Bindings
+;; =============================================================================
 
 ;; (define-key evil-normal-state-map (kbd "RET") 'save-buffer)
 (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
@@ -233,9 +236,13 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 ;; Make ";" behave like ":" in normal mode
-(define-key evil-normal-state-map (kbd ";") 'evil-ex)
-(define-key evil-visual-state-map (kbd ";") 'evil-ex)
-(define-key evil-motion-state-map (kbd ";") 'evil-ex)
+;; (define-key evil-normal-state-map (kbd ";") 'evil-ex)
+;; (define-key evil-visual-state-map (kbd ";") 'evil-ex)
+;; (define-key evil-motion-state-map (kbd ";") 'evil-ex)
+
+;; <f1> comments out
+(define-key evil-normal-state-map (kbd "<f1>") 'evilnc-comment-or-uncomment-lines)
+(define-key evil-motion-state-map (kbd "<f1>") 'evilnc-comment-or-uncomment-lines)
 
 ;; T and t move tabs left and right
 (define-key evil-normal-state-map (kbd "t") 'elscreen-next)
@@ -318,6 +325,10 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; UI
 ;; =============================================================================
 
+(require 'indent-guide)
+(indent-guide-global-mode)
+(setq indent-guide-recursive t)
+
 (global-linum-mode t)
 (setq-default truncate-lines t)
 
@@ -338,8 +349,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; Powerline
 (require 'powerline)
-;; (powerline-vim-theme)
-
+(powerline-vim-theme)
 
 
 (setq-default mode-line-format
@@ -369,8 +379,6 @@ Repeated invocations toggle between the two most recently open buffers."
                    (concat (powerline-render lhs)
                            (powerline-fill mode-line (powerline-width rhs))
                            (powerline-render rhs))))))
-
-
 
 
 ;; Highlight cursor line

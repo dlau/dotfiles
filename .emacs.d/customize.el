@@ -16,7 +16,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (project-explorer yasnippet auto-complete coffee-fof package-build shut-up epl git commander f dash s)))
+    (indent-guide package-build shut-up epl git commander f dash s)))
  '(projectile-project-root-files
    (quote
     ("rebar.config" "project.clj" "SConstruct" "pom.xml" "build.sbt" "build.gradle" "Gemfile" "requirements.txt" "package.json" "gulpfile.js" "Gruntfile.js" "bower.json" "composer.json" "Cargo.toml" "mix.exs" "README.md"))))

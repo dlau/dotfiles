@@ -235,6 +235,7 @@ NeoBundle 'christoomey/vim-tmux-navigator'
 " Completion
 NeoBundle "Shougo/neocomplete.vim"
 NeoBundle "tpope/vim-repeat"
+NeoBundle "junegunn/vim-peekaboo"
 
 "Macro
 NeoBundle "junegunn/vim-easy-align"
@@ -290,7 +291,7 @@ autocmd BufNewFile,BufRead *.jsx let g:emmet_user_react_tags=1
 "Syntastic Config
 
 let g:syntastic_python_checkers=['flake8']
-let g:syntastic_javascript_checkers=['jsxhint']
+let g:syntastic_javascript_checkers=['eslint']
 
 "Neosnippet config
 let g:neosnippet#enable_snipmate_compatibility = 1

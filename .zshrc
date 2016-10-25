@@ -70,6 +70,10 @@ export GOPATH=~/dev/go
 export PATH=$PATH:$GOPATH/bin
 
 
+# Haskell stack
+export PATH=$PATH:~/.local/bin
+
+
 # Fuzzy finder
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -83,3 +87,5 @@ export TERM=screen-256color
 
 #Modules
 autoload -U zmv
+
+export PATH="$HOME/Library/Haskell/bin:$PATH"

@@ -245,11 +245,13 @@ NeoBundle "Shougo/neosnippet.vim"
 NeoBundle "tpope/vim-surround"
 NeoBundle "tommcdo/vim-exchange"
 NeoBundle "AndrewRadev/switch.vim"
+NeoBundle "AndrewRadev/splitjoin.vim"
 NeoBundleLazy "dlau/vim-jsdoc", {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy "dlau/emmet-vim/", {'autoload':{'filetypes':['html', 'jsx', 'javascript', 'coffee']}}
+NeoBundleLazy "mattn/emmet-vim", {'autoload':{'filetypes':['html', 'jsx', 'javascript', 'coffee']}}
 
 " Checkers
-NeoBundle "scrooloose/syntastic"
+"NeoBundle "scrooloose/syntastic"
+NeoBundle "neomake/neomake"
 
 "Text Objects
 NeoBundle "michaeljsmith/vim-indent-object"
@@ -257,10 +259,12 @@ NeoBundle "michaeljsmith/vim-indent-object"
 "Tool
 NeoBundle "tpope/vim-fugitive"
 NeoBundleLazy "pangloss/vim-javascript", {'autoload':{'filetypes':['javascript']}}
-NeoBundle "tpope/vim-dispatch"
 NeoBundleLazy "tpope/vim-leiningen", {'autoload':{'filetypes':['clojure']}}
 NeoBundleLazy "tpope/vim-projectionist", {'autoload':{'filetypes':['clojure']}}
 NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
+NeoBundleLazy "elixir-lang/vim-elixir" , {'autoload':{'filetypes':['elixir']}}
+NeoBundleLazy "slashmili/alchemist.vim" , {'autoload':{'filetypes':['elixir']}}
+
 NeoBundle "sjl/gundo.vim/"
 NeoBundle "benmills/vimux"
 
@@ -281,9 +285,17 @@ set colorcolumn=80
 nnoremap - :Switch<CR>
 
 "Emmet
-noremap <C-a> <NOP>
-let g:user_emmet_leader_key='<C-a>'
-autocmd BufNewFile,BufRead *.jsx let g:emmet_user_react_tags=1
+noremap <C-l> <NOP>
+let g:user_emmet_leader_key='<C-l>'
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\ 'html' : {
+\     'block_all_childless' : 1,
+\     'block_elements' : 'div select input span',
+\   }
+\}
 
 "JSDoc
 "nmap -- :JsDoc <cr>
@@ -292,6 +304,12 @@ autocmd BufNewFile,BufRead *.jsx let g:emmet_user_react_tags=1
 
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_javascript_checkers=['eslint']
+
+"Neomake conifg
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+"Lint on write
+autocmd! BufWritePost * Neomake
 
 "Neosnippet config
 let g:neosnippet#enable_snipmate_compatibility = 1
@@ -473,6 +491,12 @@ set ssop-=options    " do not store global and local values in a session
 
 " Enable rainbow parens by default
 let g:rainbow_active = 1
+
+" Delay opening of peekaboo window (in ms. default: 0)
+let g:peekaboo_delay = 500
+
+" Compact display; do not display the names of the register groups
+let g:peekaboo_compact = 1
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)

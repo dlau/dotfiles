@@ -261,7 +261,7 @@ NeoBundle "tpope/vim-fugitive"
 NeoBundleLazy "pangloss/vim-javascript", {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy "tpope/vim-leiningen", {'autoload':{'filetypes':['clojure']}}
 NeoBundleLazy "tpope/vim-projectionist", {'autoload':{'filetypes':['clojure']}}
-NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
+"NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
 NeoBundleLazy "elixir-lang/vim-elixir" , {'autoload':{'filetypes':['elixir']}}
 NeoBundleLazy "slashmili/alchemist.vim" , {'autoload':{'filetypes':['elixir']}}
 

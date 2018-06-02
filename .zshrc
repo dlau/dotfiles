@@ -12,6 +12,7 @@ export PATH=$PATH:/usr/local/share/npm/bin
 #Give priority to /usr/local/bin
 export PATH=/usr/local/bin:$PATH
 export PATH=/Developer/NVIDIA/CUDA-5.5/bin:$PATH
+export PATH=$PATH:node_modules/.bin:$PATH
 
 #Aliases
 alias ll="ls -al"
@@ -89,3 +90,10 @@ export TERM=screen-256color
 autoload -U zmv
 
 export PATH="$HOME/Library/Haskell/bin:$PATH"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/daryl/.nvm/versions/node/v7.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/daryl/.nvm/versions/node/v7.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/daryl/.nvm/versions/node/v7.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/daryl/.nvm/versions/node/v7.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh

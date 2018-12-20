@@ -246,7 +246,6 @@ NeoBundle "tpope/vim-surround"
 NeoBundle "tommcdo/vim-exchange"
 NeoBundle "AndrewRadev/switch.vim"
 NeoBundle "AndrewRadev/splitjoin.vim"
-NeoBundleLazy "dlau/vim-jsdoc", {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy "mattn/emmet-vim", {'autoload':{'filetypes':['html', 'jsx', 'javascript', 'coffee']}}
 
 " Checkers

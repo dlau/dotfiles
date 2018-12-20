@@ -55,5 +55,3 @@ hs.hotkey.bind({"cmd", "shift"}, "l", function()
 end)
 
 --end hs.window movement
-
-hs.loadSpoon('ControlEscape'):start() -- Load Hammerspoon bits from https://github.com/jasonrudolph/ControlEscape.spoon

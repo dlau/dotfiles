@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+#ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME=simple
+#ZSH_THEME=simple
 
 #Path modification
 export PATH=$PATH:/usr/local/share/npm/bin
@@ -16,7 +16,6 @@ export PATH=$PATH:node_modules/.bin:$PATH
 
 #Aliases
 alias ll="ls -al"
-alias v=/usr/local/bin/gvim
 alias frsync=rsync --iconv=utf-8-mac,utf-8 -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x"
 
 #Vi bash mode
@@ -25,17 +24,38 @@ bindkey -v
 #Delay between ESC and mode change
 export KEYTIMEOUT=1
 
-#Using iojs for now
 [ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-plugins=(git, vi-mode)
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}("
+ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+# show git branch/tag, or name-rev if on detached head
+parse_git_branch() {
+  (command git symbolic-ref -q HEAD || command git name-rev --name-only --no-undefined --always HEAD) 2>/dev/null
+}
+
+# show red star if there are uncommitted changes
+parse_git_dirty() {
+  if command git diff-index --quiet HEAD 2> /dev/null; then
+    echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
+  else
+    echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
+  fi
+}
+
+# if in a git repo, show dirty indicator + git branch
+git_custom_status() {
+  local git_where="$(parse_git_branch)"
+  [ -n "$git_where" ] && echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX${git_where#(refs/heads/|tags/)}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+}
+
 #http://zshwiki.org/home/zle/vi-mode
+bindkey -v
+export KEYTIMEOUT=1
 function zle-line-init zle-keymap-select {
   RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
   RPS2=$RPS1
@@ -43,6 +63,9 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
+
+export PS1="%d $(git_custom_status):"
+
 
 bindkey -a u undo
 bindkey -a '^R' redo
@@ -81,8 +104,8 @@ export PATH=$PATH:~/.local/bin
 
 
 # Extra 
-source ~/.zsh/plugins/opp.zsh/opp.zsh
-source ~/.zsh/plugins/opp.zsh/opp/surround.zsh
+#source ~/.zsh/plugins/opp.zsh/opp.zsh
+#source ~/.zsh/plugins/opp.zsh/opp/surround.zsh
 
 export TERM=screen-256color
 

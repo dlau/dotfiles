@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh configuration.
-#ZSH=$HOME/.oh-my-zsh
+ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME=simple
+ZSH_THEME=simple
 
 #Path modification
 export PATH=$PATH:/usr/local/share/npm/bin
@@ -13,9 +13,12 @@ export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=/usr/local/bin:$PATH
 export PATH=/Developer/NVIDIA/CUDA-5.5/bin:$PATH
 export PATH=$PATH:node_modules/.bin:$PATH
+export PATH=/usr/local/opt/gnu-sed/libexec/gnubin:$PATH
 
 #Aliases
 alias ll="ls -al"
+alias vim=nvim
+alias vi=nvim
 alias frsync=rsync --iconv=utf-8-mac,utf-8 -aHAXxv --numeric-ids --delete --progress -e "ssh -T -c arcfour -o Compression=no -x"
 
 #Vi bash mode
@@ -24,34 +27,11 @@ bindkey -v
 #Delay between ESC and mode change
 export KEYTIMEOUT=1
 
-[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
-
 # User configuration
+plugins=(git, vi-mode)
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}("
-ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-# show git branch/tag, or name-rev if on detached head
-parse_git_branch() {
-  (command git symbolic-ref -q HEAD || command git name-rev --name-only --no-undefined --always HEAD) 2>/dev/null
-}
-
-# show red star if there are uncommitted changes
-parse_git_dirty() {
-  if command git diff-index --quiet HEAD 2> /dev/null; then
-    echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
-  else
-    echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
-  fi
-}
-
-# if in a git repo, show dirty indicator + git branch
-git_custom_status() {
-  local git_where="$(parse_git_branch)"
-  [ -n "$git_where" ] && echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX${git_where#(refs/heads/|tags/)}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
+source $ZSH/oh-my-zsh.sh
 
 #http://zshwiki.org/home/zle/vi-mode
 bindkey -v
@@ -63,9 +43,6 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
-
-export PS1="%d $(git_custom_status):"
-
 
 bindkey -a u undo
 bindkey -a '^R' redo
@@ -114,9 +91,64 @@ autoload -U zmv
 
 export PATH="$HOME/Library/Haskell/bin:$PATH"
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/daryl/.nvm/versions/node/v7.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/daryl/.nvm/versions/node/v7.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/daryl/.nvm/versions/node/v7.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/daryl/.nvm/versions/node/v7.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+source /Users/dlau/.rvm/scripts/rvm
+
+ export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+
+if [ -e "$HOME/env/etc/indeed_profile" ]; then
+    . "$HOME/env/etc/indeed_profile"
+fi
+
+if [ -d "$HOME/env/bin" ]; then
+    PATH="$HOME/env/bin:$PATH"
+fi
+
+
+# Add dev tool binaries to path
+if [ -d "$HOME/.indeed-dev-tools/bin" ]; then
+    PATH="$HOME/.indeed-dev-tools/bin:$PATH"
+fi
+
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+unsetopt nomatch
+eval "$(pyenv init -)"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+eval $(docker-machine env "hobo-vb-default")
+
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+export PYTHONPATH=$HOME/indeed/shield/products:$PYTHONPATH
+export PYTHONPATH=$HOME/indeed/shield/products/pyprotos/clients:$PYTHONPATH
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc

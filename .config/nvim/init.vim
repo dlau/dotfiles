@@ -189,93 +189,77 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-if has('vim_starting')
 if &compatible
  set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
 
 " Plugins {{{
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'mac' : 'make -f make_mac.mak',
-      \    },
-      \ }
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
 
 " Layout
-NeoBundleLazy "groenewege/vim-less",  {'autoload':{'filetypes':['less']}}
-NeoBundleLazy "digitaltoad/vim-jade",  {'autoload':{'filetypes':['jade']}}
-NeoBundleLazy "ap/vim-css-color", {'autoload':{'filetypes':['css','sass','less']}}
-NeoBundleLazy "wavded/vim-stylus", {'autoload':{'filetypes':['styl']}}
-NeoBundleLazy "fatih/vim-go.git", {'autoload':{'filetypes':['go']}}
-NeoBundleLazy "kchmck/vim-coffee-script", {'autoload':{'filetypes':['coffee']}}
-NeoBundle "ntpeters/vim-better-whitespace"
-NeoBundle "airblade/vim-gitgutter"
-NeoBundleLazy "luochen1990/rainbow", {'autoload':{'filetypes':['clojure','lisp','javascript','vim']}}
-NeoBundle "nathanaelkane/vim-indent-guides"
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'groenewege/vim-less', { 'for':'less' }
+Plug 'digitaltoad/vim-jade',  { 'for':'jade' }
+Plug 'ap/vim-css-color', { 'for': ['css','sass','less'] }
+Plug 'fatih/vim-go.git', { 'for':'go' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'airblade/vim-gitgutter'
+Plug 'luochen1990/rainbow'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " Navigation
-NeoBundle "Shougo/tabpagebuffer.vim"
-NeoBundle "Shougo/vimfiler.vim"
-NeoBundle 'Shougo/unite.vim'
-NeoBundle "junegunn/fzf"
-NeoBundle "junegunn/fzf.vim"
-NeoBundle 'haya14busa/incsearch.vim'
-NeoBundle 'christoomey/vim-tmux-navigator'
+Plug 'Shougo/tabpagebuffer.vim'
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
-NeoBundle "Shougo/neocomplete.vim"
-NeoBundle "neoclide/coc.nvim",
-NeoBundle "tpope/vim-repeat"
-NeoBundle "junegunn/vim-peekaboo"
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+"Make sure to run :checkhealth
+" CocInstall coc-tsserver coc-eslint coc-java
+" Plug 'Quramy/tsuquyomi'
+
+
+Plug 'tpope/vim-repeat'
+Plug 'junegunn/vim-peekaboo'
 
 "Macro
-NeoBundle "junegunn/vim-easy-align"
-NeoBundle "scrooloose/nerdcommenter"
-NeoBundle "tpope/vim-unimpaired"
-NeoBundle "Shougo/neosnippet.vim"
-NeoBundle "tpope/vim-surround"
-NeoBundle "tommcdo/vim-exchange"
-NeoBundle "AndrewRadev/switch.vim"
-NeoBundle "AndrewRadev/splitjoin.vim"
-NeoBundleLazy "mattn/emmet-vim", {'autoload':{'filetypes':['html', 'jsx', 'javascript', 'coffee']}}
-
-" Checkers
-"NeoBundle "scrooloose/syntastic"
-NeoBundle "neomake/neomake"
+Plug 'junegunn/vim-easy-align'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-unimpaired'
+"Plug 'Shougo/neosnippet.vim'
+Plug 'tpope/vim-surround'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'jsx', 'javascript', 'coffee'] }
 
 "Text Objects
-NeoBundle "michaeljsmith/vim-indent-object"
+Plug 'michaeljsmith/vim-indent-object'
 
 "Tool
-NeoBundle "tpope/vim-fugitive"
-NeoBundleLazy "pangloss/vim-javascript", {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy "tpope/vim-leiningen", {'autoload':{'filetypes':['clojure']}}
-NeoBundleLazy "tpope/vim-projectionist", {'autoload':{'filetypes':['clojure']}}
-"NeoBundleLazy "tpope/vim-fireplace", {'autoload':{'filetypes':['clojure']}}
-NeoBundleLazy "elixir-lang/vim-elixir" , {'autoload':{'filetypes':['elixir']}}
-NeoBundleLazy "slashmili/alchemist.vim" , {'autoload':{'filetypes':['elixir']}}
+Plug 'tpope/vim-fugitive'
+Plug 'pangloss/vim-javascript', { 'for':'javascript' }
+Plug 'tpope/vim-leiningen', { 'for':'clojure' }
+Plug 'tpope/vim-projectionist', { 'for':'clojure' }
+Plug 'tpope/vim-fireplace', { 'for':'clojure' }
+Plug 'elixir-lang/vim-elixir' , { 'for':'elixir' }
+Plug 'slashmili/alchemist.vim' , { 'for':'elixir' }
 
-NeoBundle "sjl/gundo.vim/"
-NeoBundle "benmills/vimux"
-
-call neobundle#end()
+Plug 'sjl/gundo.vim/'
+Plug 'benmills/vimux'
 
 filetype plugin indent on     " Required!
 
-NeoBundleCheck
-
+" Initialize plugin system
+call plug#end()
 
 set backspace=eol,start,indent         " backspace in insert mode works like normal editor
 
@@ -302,76 +286,55 @@ let g:user_emmet_settings = {
 "JSDoc
 "nmap -- :JsDoc <cr>
 
-"Syntastic Config
-
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_javascript_checkers=['eslint']
-
-"Neomake conifg
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
-"Lint on write
-autocmd! BufWritePost * Neomake
-
-"Neosnippet config
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory = '~/.vim/snippets/'
-imap <expr><C-]> (pumvisible() ? "\<C-y>":"")."\<Plug>(neosnippet_expand_or_jump)"
-nmap <expr><C-]> (pumvisible() ? "\<C-y>":"")."\<Plug>(neosnippet_expand_or_jump)"
-
-"Unite.vim plugin configuration
-
-"TODO: Make project specific
-"Greppers
-if executable('ag')
-    let g:unite_source_grep_command='ag'
-    let g:unite_source_grep_default_opts='--nocolor --nogroup --hidden'
-    let g:unite_source_grep_recursive_opt=''
-elseif executable('ack')
-    let g:unite_source_grep_command = 'ack'
-    let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-    let g:unite_source_grep_recursive_opt = ''
-endif
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#custom#profile('default', 'context', { 'cursor_line_highlight' : 'PmenuSel' })
-
-
-let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --hidden -g ""'
-
-call unite#custom#source(
-    \ 'file_rec/async,grep',
-    \ 'ignore_pattern',
-    \ join(['^cache\/','^\.\S*/','\/\.\S*/','\.git/', 'node_modules/', 'assets/images', 'assets/addons'], '\|')
-\)
-call unite#custom#source(
-    \ 'buffer,file,file_rec,grep',
-    \ 'sorters', [])
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-
-let g:unite_source_file_rec_max_cache_files = 0
-call unite#custom#source('file_rec,file_rec/async,grepocate',
-        \ 'max_candidates', 25)
-
-
-function! s:unite_settings()
-    nmap <buffer> Q <plug>(unite_exit)
-    nmap <buffer> <esc> <plug>(unite_exit)
-    imap <buffer> <esc> <plug>(unite_exit)
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-let g:unite_source_history_yank_enable = 1
+inoremap <silent><expr> <C-]>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<C-]>" :
+      \ coc#refresh()
 
+" Unite/denite
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+
+call denite#custom#option('default', 'direction', 'top')
+call denite#custom#option('default', 'highlight_mode_insert', 'Visual')
+call denite#custom#option('default', 'highlight_mode_normal', 'Visual')
+
+call denite#custom#var('file/rec', 'command',
+      \ ['rg', '--files', '--glob', '!.git'])
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'final_opts', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'default_opts',
+      \ ['-i', '--vimgrep', '--no-heading'])
+
+let g:fzf_layout = { 'up': '~40%' }
+let $FZF_DEFAULT_COMMAND = 'rg --files'
 nnoremap <leader>f :<C-u>FZF<cr>
-nnoremap <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers  buffer_tab<cr>
+
+nnoremap <leader>b :<C-u>Denite buffer<cr>
 nnoremap <leader>y :<C-u>Unite history/yank<cr>
 
-nnoremap <leader>g :<C-u>Unite -horizontal -no-quit -buffer-name=grepbuffer grep:.<cr>
-
-let g:unite_source_menu_menus = {}
+nnoremap <leader>g :<C-u>Denite grep<cr>
 
 "Disable Auto commenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -379,54 +342,78 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "Toggle comment off/on
 
 noremap <C-\>  :VimFilerExplorer<cr>
+
+	autocmd FileType defx call s:defx_my_settings()
+	function! s:defx_my_settings() abort
+	  " Define mappings
+    nnoremap <silent><buffer><expr> zo defx#do_action('open_tree')
+	  nnoremap <silent><buffer><expr> <CR>
+	  \ defx#do_action('open')
+	  nnoremap <silent><buffer><expr> c
+	  \ defx#do_action('copy')
+	  nnoremap <silent><buffer><expr> m
+	  \ defx#do_action('move')
+	  nnoremap <silent><buffer><expr> p
+	  \ defx#do_action('paste')
+	  nnoremap <silent><buffer><expr> l
+	  \ defx#do_action('open')
+	  nnoremap <silent><buffer><expr> E
+	  \ defx#do_action('open', 'vsplit')
+	  nnoremap <silent><buffer><expr> P
+	  \ defx#do_action('open', 'pedit')
+	  nnoremap <silent><buffer><expr> o
+	  \ defx#do_action('open_or_close_tree')
+	  nnoremap <silent><buffer><expr> K
+	  \ defx#do_action('new_directory')
+	  nnoremap <silent><buffer><expr> N
+	  \ defx#do_action('new_file')
+	  nnoremap <silent><buffer><expr> M
+	  \ defx#do_action('new_multiple_files')
+	  nnoremap <silent><buffer><expr> C
+	  \ defx#do_action('toggle_columns',
+	  \                'mark:indent:icon:filename:type:size:time')
+	  nnoremap <silent><buffer><expr> S
+	  \ defx#do_action('toggle_sort', 'time')
+	  nnoremap <silent><buffer><expr> d
+	  \ defx#do_action('remove')
+	  nnoremap <silent><buffer><expr> r
+	  \ defx#do_action('rename')
+	  nnoremap <silent><buffer><expr> !
+	  \ defx#do_action('execute_command')
+	  nnoremap <silent><buffer><expr> x
+	  \ defx#do_action('execute_system')
+	  nnoremap <silent><buffer><expr> yy
+	  \ defx#do_action('yank_path')
+	  nnoremap <silent><buffer><expr> .
+	  \ defx#do_action('toggle_ignored_files')
+	  nnoremap <silent><buffer><expr> ;
+	  \ defx#do_action('repeat')
+	  nnoremap <silent><buffer><expr> h
+	  \ defx#do_action('cd', ['..'])
+	  nnoremap <silent><buffer><expr> ~
+	  \ defx#do_action('cd')
+	  nnoremap <silent><buffer><expr> q
+	  \ defx#do_action('quit')
+	  nnoremap <silent><buffer><expr> <Space>
+	  \ defx#do_action('toggle_select') . 'j'
+	  nnoremap <silent><buffer><expr> *
+	  \ defx#do_action('toggle_select_all')
+	  nnoremap <silent><buffer><expr> j
+	  \ line('.') == line('$') ? 'gg' : 'j'
+	  nnoremap <silent><buffer><expr> k
+	  \ line('.') == 1 ? 'G' : 'k'
+	  nnoremap <silent><buffer><expr> <C-l>
+	  \ defx#do_action('redraw')
+	  nnoremap <silent><buffer><expr> <C-g>
+	  \ defx#do_action('print')
+	  nnoremap <silent><buffer><expr> cd
+	  \ defx#do_action('change_vim_cwd')
+	endfunction
 map <F1> <plug>NERDCommenterToggle
 
-"Neocomplete
-let g:neocomplete#enable_auto_select = 1
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-let g:tern#is_show_argument_hints_enabled = 1
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#cancel_popup() . "\<CR>"
-  "" For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-      let g:neocomplete#force_omni_input_patterns = {}
-  endif
-autocmd FileType javascript setlocal omnifunc=tern#Complete
-autocmd FileType javascript let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
-
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " File jumping in javascript
 autocmd FileType javascript setlocal suffixesadd+=.js
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
 
 "Incremental search overrides
 nmap /  <Plug>(incsearch-forward)
@@ -517,8 +504,6 @@ nnoremap t :tabnext<CR>
 nnoremap T :tabprevious<CR>
 nnoremap <C-t> :tabnew<CR>
 
-imap <expr><C-]> (pumvisible() ? "\<C-y>":"")."\<Plug>(neosnippet_expand_or_jump)"
-
 set cursorline
 
 set tabstop=2
@@ -537,4 +522,5 @@ nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 
 map <F6> :call VimuxRunLastCommand()<CR>
+
 

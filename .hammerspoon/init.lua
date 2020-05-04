@@ -1,5 +1,5 @@
 --default is 3x3, adjust to 5x3
---hs.grid.adjustwidth(2)
+hs.grid.setGrid('5x3')
 
 --resize fns hjkl
 hs.window.animationDuration = 0
